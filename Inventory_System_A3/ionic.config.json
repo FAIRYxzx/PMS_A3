@@ -1,0 +1,7 @@
+{
+  "name": "Inventory_System_A3",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
