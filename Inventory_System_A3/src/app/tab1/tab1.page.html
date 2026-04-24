@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Inventory List</ion-title>
     <ion-button slot="end" (click)="showHelp()">
       <ion-icon name="help-circle-outline"></ion-icon>
@@ -7,20 +7,60 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-searchbar 
-    [(ngModel)]="searchTerm" 
-    (ionInput)="search()"
+<ion-content class="ion-padding">
+
+  <!-- Search Bar -->
+  <ion-searchbar
+    [(ngModel)]="searchTerm"
+    (ionInput)="applyFilters()"
     placeholder="Search by item name">
   </ion-searchbar>
 
-  <ion-list>
-    <ion-item *ngFor="let item of items">
-      <ion-label>
-        <h2>{{ item.item_name }}</h2>
-        <p>Quantity: {{ item.quantity }} | Price: ${{ item.price }}</p>
-        <p>Status: {{ item.stock_status }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <!-- Filter & Sort Tools -->
+  <div class="filter-row ion-margin-top">
+    <!-- Category Filter -->
+    <ion-select 
+      [(ngModel)]="selectedCategory" 
+      (ionChange)="applyFilters()"
+      placeholder="Filter by Category"
+      class="filter-select">
+      <ion-select-option value="">All Categories</ion-select-option>
+      <ion-select-option *ngFor="let cat of categories" [value]="cat">
+        {{ cat }}
+      </ion-select-option>
+    </ion-select>
+
+    <!-- Popularity Sort Button -->
+    <ion-button 
+      fill="outline" 
+      size="small" 
+      (click)="togglePopularitySort()"
+      color="secondary">
+      <ion-icon name="filter-outline" slot="start"></ion-icon>
+      {{ sortByPopularity ? 'Popularity: ON' : 'Sort by Popularity' }}
+    </ion-button>
+  </div>
+
+  <!-- Item List (Show ALL fields) -->
+  <ion-card *ngFor="let item of filteredItems" class="ion-margin-top">
+    <ion-card-content>
+      <h3><strong>{{ item.item_name }}</strong></h3>
+
+      <ion-chip color="primary">{{ item.category }}</ion-chip>
+      <ion-chip color="tertiary" *ngIf="item.featured_item === 1">Popular</ion-chip>
+
+      <p><strong>ID:</strong> {{ item.item_id }}</p>
+      <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+      <p><strong>Price:</strong> ${{ item.price }}</p>
+      <p><strong>Supplier:</strong> {{ item.supplier_name }}</p>
+      <p><strong>Status:</strong> {{ item.stock_status }}</p>
+      <p *ngIf="item.special_note"><strong>Note:</strong> {{ item.special_note }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Empty State -->
+  <div *ngIf="filteredItems.length === 0" class="ion-text-center ion-margin-top">
+    <p>No items found</p>
+  </div>
+
 </ion-content>

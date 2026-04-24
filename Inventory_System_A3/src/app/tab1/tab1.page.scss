@@ -1,0 +1,13 @@
+.filter-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.filter-select {
+  flex: 1;
+}
+
+ion-card {
+  border-radius: 12px;
+}
