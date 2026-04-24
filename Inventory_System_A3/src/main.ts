@@ -9,6 +9,6 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     provideIonicAngular(),
-    provideHttpClient() // 关键！解决HttpClient请求白屏问题
+    provideHttpClient()
   ]
 });

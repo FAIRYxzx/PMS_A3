@@ -16,18 +16,18 @@ import { FormsModule } from '@angular/forms';
 addIcons({ helpCircleOutline, filterOutline });
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss'],
+  selector: 'app-inventory',
+  templateUrl: 'inventory.page.html',
+  styleUrls: ['inventory.page.scss'],
   imports: [
     IonHeader, IonToolbar, IonTitle, IonContent,
-    IonSearchbar, IonList, IonItem, IonLabel,
+    IonSearchbar,
     IonButton, IonIcon, IonSelect, IonSelectOption,
     IonCard, IonCardContent, IonChip,
     CommonModule, FormsModule
   ],
 })
-export class Tab1Page implements OnInit {
+export class InventoryPage implements OnInit {
   items: InventoryItem[] = [];
   filteredItems: InventoryItem[] = [];
   searchTerm = '';
