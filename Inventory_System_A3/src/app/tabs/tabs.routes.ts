@@ -1,34 +1,53 @@
+// Import Angular core routing interface for defining route rules
 import { Routes } from '@angular/router';
+// Import Tabs page component as the parent container for all child routes
 import { TabsPage } from './tabs.page';
 
+// Define route configuration array for Tabs module, following Angular Routes interface
 export const routes: Routes = [
   {
-    path: 'tabs',
+    // Empty path (matches /tabs), root route for Tabs page
+    path: '',
+    // Associate with TabsPage component; all child routes render inside this component
     component: TabsPage,
+    // Child route configuration: tab pages under Tabs
     children: [
       {
+        // Route path for Inventory List tab
         path: 'inventory',
+        // Lazy load component: optimize initial load speed, only load when route is accessed
         loadComponent: () =>
           import('../inventory/inventory.page').then((m) => m.InventoryPage),
       },
       {
-        path: 'tab2',
+        // Route path for Add Item tab
+        path: 'add',
         loadComponent: () =>
-          import('../tab2/tab2.page').then((m) => m.Tab2Page),
+          import('../add/add.page').then((m) => m.AddPage),
+      },
+      // Route configuration for Edit/Delete tab
+      {
+        path: 'edit-delete',
+        loadComponent: () =>
+          import('../edit-delete/edit-delete.page').then((m) => m.EditDeletePage),
+      },
+      // Route configuration for Privacy & Security tab
+      {
+        path: 'privacy-security',
+        loadComponent: () =>
+          import('../privacy-security/privacy-security.page').then((m) => m.PrivacySecurityPage),
       },
       {
-        path: 'tab3',
-        loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
-      },
-      {
+        // Empty child path (matches /tabs/), redirect to Inventory List by default
         path: '',
         redirectTo: '/tabs/inventory',
+        // Strict full path match to avoid redirection errors from partial matching
         pathMatch: 'full',
       },
     ],
   },
   {
+    // Root path (/) redirects to Inventory List to ensure default page on app launch
     path: '',
     redirectTo: '/tabs/inventory',
     pathMatch: 'full',

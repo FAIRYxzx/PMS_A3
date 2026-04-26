@@ -1,18 +1,31 @@
+<!-- Ionic tab container component, manages tab switching and rendering -->
 <ion-tabs>
+  <!-- Tab bar component, slot="bottom" fixes it at the bottom of the screen -->
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="inventory" href="/tabs/inventory">
-      <ion-icon aria-hidden="true" name="triangle"></ion-icon>
-      <ion-label>Inventory</ion-label>
+    <!-- Inventory List tab button: linked to inventory route -->
+    <ion-tab-button tab="inventory">
+      <!-- Icon component: bound to list icon defined in ts -->
+      <ion-icon [src]="icons.list"></ion-icon>
+      <!-- Tab label text -->
+      <ion-label>Inventory List</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab2" href="/tabs/tab2">
-      <ion-icon aria-hidden="true" name="ellipse"></ion-icon>
-      <ion-label>Tab 2</ion-label>
+    <!-- Add Item tab button: linked to add route -->
+    <ion-tab-button tab="add">
+      <ion-icon [src]="icons.add"></ion-icon>
+      <ion-label>Add</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="tab3" href="/tabs/tab3">
-      <ion-icon aria-hidden="true" name="square"></ion-icon>
-      <ion-label>Tab 3</ion-label>
+    <!-- Edit/Delete tab button: linked to edit-delete route -->
+    <ion-tab-button tab="edit-delete">
+      <ion-icon [src]="icons.edit"></ion-icon>
+      <ion-label>Edit/Delete</ion-label>
+    </ion-tab-button>
+
+    <!-- Privacy & Security tab button: linked to privacy-security route -->
+    <ion-tab-button tab="privacy-security">
+      <ion-icon [src]="icons.privacy"></ion-icon>
+      <ion-label>Privacy & Security</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
