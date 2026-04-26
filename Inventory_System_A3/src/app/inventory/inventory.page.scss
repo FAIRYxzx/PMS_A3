@@ -1,13 +1,127 @@
-.filter-row {
+// Filter card wrapper for all filter controls
+.filter-card {
+  margin-bottom: 20px; // Bottom margin for spacing below
+}
+
+// Advanced filter area styling
+.advanced-filters {
+  padding-top: 16px; // Top padding for spacing inside expanded panel
+}
+
+// Price range row layout
+.price-row {
+  margin-top: 8px; // Top margin to separate from above filters
+}
+
+// Individual price input container
+.price-item {
+  margin-bottom: 8px; // Bottom margin for vertical spacing
+}
+
+// Price input label styling
+.price-label {
+  margin-bottom: 6px; // Bottom margin below label
+  font-weight: 500; // Medium bold for emphasis
+}
+
+// Separator between min and max price
+.price-separator {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #4a5568; // Neutral gray for readability
+}
+
+// Sort order indicator next to sort button
+.sort-order {
+  margin-left: 4px; // Small left margin
+  font-size: 0.8rem; // Small text to avoid distraction
+}
+
+// Individual inventory item card
+.item-card {
+  position: relative; // Position context for absolute badge container
+}
+
+// Badge container for stock status and featured labels
+.badge-container {
+  position: absolute; // Fixed at top-right
+  top: 12px;
+  right: 12px;
   display: flex;
-  gap: 8px;
-  align-items: center;
+  flex-direction: column; // Stack badges vertically
+  gap: 6px; // Spacing between badges
+  align-items: flex-end; // Align to right edge
 }
 
-.filter-select {
-  flex: 1;
+// Stock status badge font size
+.stock-badge {
+  font-size: 0.75rem;
 }
 
-ion-card {
-  border-radius: 12px;
+// Featured item badge font size
+.featured-badge {
+  font-size: 0.75rem;
+}
+
+// Single-column item info layout
+.item-info-single-column {
+  padding-right: 100px; // Leave space for right-side badges
+  
+  // Section for each info field (label + value)
+  .info-section {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  // Item name styling
+  .item-name {
+    margin: 0;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  // Inline item ID secondary text
+  .item-id-inline {
+    font-size: 0.9rem;
+    color: #718096; // Light gray
+    font-weight: normal;
+  }
+
+  // Field label (e.g. Category:)
+  .label {
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.95rem;
+  }
+
+  // Field value (e.g. Electronics)
+  .value {
+    color: #1a202c;
+    font-size: 0.95rem;
+  }
+
+  // Special note italic text
+  .note {
+    font-style: italic;
+    color: #718096;
+  }
+}
+
+// Empty state when no items match filter
+.empty-state {
+  padding-top: 40px;
+  
+  // Empty state icon margin
+  ion-icon {
+    margin-bottom: 16px;
+  }
+}
+
+// Search bar bottom margin
+ion-searchbar {
+  margin-bottom: 16px;
 }

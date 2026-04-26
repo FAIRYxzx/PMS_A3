@@ -1,66 +1,223 @@
+<!-- Page header with title and help button -->
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Inventory List</ion-title>
-    <ion-button slot="end" (click)="showHelp()">
-      <ion-icon name="help-circle-outline"></ion-icon>
+    <!-- Help button: opens help dialog -->
+    <ion-button slot="end" color="danger" (click)="showHelp()">
+      <ion-icon [src]="icons.help"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
+<!-- Main page content -->
 <ion-content class="ion-padding">
-
-  <!-- Search Bar -->
-  <ion-searchbar
-    [(ngModel)]="searchTerm"
-    (ionInput)="applyFilters()"
-    placeholder="Search by item name">
-  </ion-searchbar>
-
-  <!-- Filter & Sort Tools -->
-  <div class="filter-row ion-margin-top">
-    <!-- Category Filter -->
-    <ion-select 
-      [(ngModel)]="selectedCategory" 
-      (ionChange)="applyFilters()"
-      placeholder="Filter by Category"
-      class="filter-select">
-      <ion-select-option value="">All Categories</ion-select-option>
-      <ion-select-option *ngFor="let cat of categories" [value]="cat">
-        {{ cat }}
-      </ion-select-option>
-    </ion-select>
-
-    <!-- Popularity Sort Button -->
-    <ion-button 
-      fill="outline" 
-      size="small" 
-      (click)="togglePopularitySort()"
-      color="secondary">
-      <ion-icon name="filter-outline" slot="start"></ion-icon>
-      {{ sortByPopularity ? 'Popularity: ON' : 'Sort by Popularity' }}
-    </ion-button>
-  </div>
-
-  <!-- Item List (Show ALL fields) -->
-  <ion-card *ngFor="let item of filteredItems" class="ion-margin-top">
+  <!-- Filter card containing search, filters, and sorting -->
+  <ion-card class="filter-card">
     <ion-card-content>
-      <h3><strong>{{ item.item_name }}</strong></h3>
+      <!-- Basic item name search -->
+      <ion-searchbar
+        [(ngModel)]="searchName"
+        placeholder="Search by item name"
+        class="ion-margin-bottom"
+      ></ion-searchbar>
 
-      <ion-chip color="primary">{{ item.category }}</ion-chip>
-      <ion-chip color="tertiary" *ngIf="item.featured_item === 1">Popular</ion-chip>
+      <!-- Advanced filter accordion panel -->
+      <ion-accordion-group>
+        <ion-accordion value="advanced">
+          <ion-item slot="header" lines="none" class="ion-no-padding">
+            <ion-label>
+              <strong>Advanced Filters</strong>
+            </ion-label>
+          </ion-item>
+          
+          <!-- Advanced filter content -->
+          <div slot="content" class="advanced-filters">
+            <ion-grid>
+              <!-- Category and stock status row -->
+              <ion-row>
+                <ion-col size="6">
+                  <ion-select
+                    [(ngModel)]="selectedCategory"
+                    placeholder="Category"
+                    fill="outline"
+                    class="ion-margin-bottom"
+                  >
+                    <ion-select-option value="">All</ion-select-option>
+                    <ion-select-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</ion-select-option>
+                  </ion-select>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-select
+                    [(ngModel)]="selectedStockStatus"
+                    placeholder="Stock Status"
+                    fill="outline"
+                    class="ion-margin-bottom"
+                  >
+                    <ion-select-option value="">All</ion-select-option>
+                    <ion-select-option *ngFor="let status of stockStatuses" [value]="status">{{ status }}</ion-select-option>
+                  </ion-select>
+                </ion-col>
+              </ion-row>
 
-      <p><strong>ID:</strong> {{ item.item_id }}</p>
-      <p><strong>Quantity:</strong> {{ item.quantity }}</p>
-      <p><strong>Price:</strong> ${{ item.price }}</p>
-      <p><strong>Supplier:</strong> {{ item.supplier_name }}</p>
-      <p><strong>Status:</strong> {{ item.stock_status }}</p>
-      <p *ngIf="item.special_note"><strong>Note:</strong> {{ item.special_note }}</p>
+              <!-- Price range filter -->
+              <ion-row class="ion-align-items-center price-row">
+                <ion-col size="5">
+                  <ion-item lines="none" class="ion-no-padding price-item">
+                    <ion-label position="stacked" class="price-label">Min Price</ion-label>
+                    <ion-input 
+                      type="number" 
+                      [(ngModel)]="priceMin" 
+                      min="0"
+                      (ionChange)="validatePriceMin()"
+                      placeholder="Not less than 0"
+                      fill="outline"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="2" class="ion-text-center">
+                  <span class="price-separator">~</span>
+                </ion-col>
+                <ion-col size="5">
+                  <ion-item lines="none" class="ion-no-padding price-item">
+                    <ion-label position="stacked" class="price-label">Max Price</ion-label>
+                    <ion-input 
+                      type="number" 
+                      [(ngModel)]="priceMax" 
+                      min="0"
+                      placeholder="No limit"
+                      fill="outline"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <!-- Featured items only toggle -->
+              <ion-row class="ion-margin-top">
+                <ion-col size="12">
+                  <ion-item lines="none" class="ion-no-padding">
+                    <ion-label>Show Featured Items Only</ion-label>
+                    <ion-toggle [(ngModel)]="showFeaturedOnly"></ion-toggle>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+
+      <!-- Search and reset buttons -->
+      <ion-grid class="ion-margin-top">
+        <ion-row>
+          <ion-col size="6">
+            <ion-button expand="block" color="primary" (click)="applySearchAndFilters()" size="small">
+              <ion-icon [src]="icons.search" slot="start"></ion-icon>
+              Search
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <ion-button expand="block" fill="outline" color="medium" (click)="resetAll()" size="small">
+              Reset
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <!-- Price sort button -->
+      <ion-grid class="ion-margin-top">
+        <ion-row>
+          <ion-col size="12">
+            <ion-button 
+              expand="block" 
+              [color]="sortBy === 'price' ? 'primary' : 'medium'"
+              (click)="toggleSort('price')"
+              size="small"
+            >
+              <ion-icon 
+                [name]="sortBy === 'price' ? (sortOrder === 'desc' ? 'arrow-down-outline' : 'arrow-up-outline') : 'arrow-up-outline'" 
+                slot="start"
+              ></ion-icon>
+              Sort by Price
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 
-  <!-- Empty State -->
-  <div *ngIf="filteredItems.length === 0" class="ion-text-center ion-margin-top">
-    <p>No items found</p>
-  </div>
+  <!-- Refresh inventory button -->
+  <ion-button
+    expand="block"
+    color="primary"
+    (click)="loadAllItems()"
+    [disabled]="isLoading"
+    class="ion-margin-bottom"
+    size="small"
+  >
+    <ion-icon [src]="icons.refresh" slot="start"></ion-icon>
+    Refresh Inventory
+  </ion-button>
 
+  <!-- Loading indicator during data fetch -->
+  <ion-loading [isOpen]="isLoading" message="Loading..." spinner="circles"></ion-loading>
+
+  <!-- Display filtered items or empty state -->
+  <ng-container *ngIf="filteredItems.length > 0; else noData">
+    <!-- Loop through filtered items -->
+    <ion-card *ngFor="let item of filteredItems" class="ion-margin-bottom item-card">
+      <ion-card-content>
+        <!-- Status badges: stock and featured -->
+        <div class="badge-container">
+          <ion-badge [color]="statusColorMap[item.stock_status]" class="stock-badge">
+            {{ item.stock_status }}
+          </ion-badge>
+          <ion-badge *ngIf="item.featured_item === 1" color="tertiary" class="featured-badge">
+            Featured
+          </ion-badge>
+        </div>
+
+        <!-- Item details -->
+        <div class="item-info-single-column">
+          <div class="info-section">
+            <h2 class="item-name">
+              <strong>{{ item.item_name }}</strong>
+              <span class="item-id-inline">(ID: {{ item.item_id }})</span>
+            </h2>
+          </div>
+
+          <div class="info-section">
+            <span class="label">Category:</span>
+            <span class="value">{{ item.category }}</span>
+          </div>
+
+          <div class="info-section">
+            <span class="label">Supplier:</span>
+            <span class="value">{{ item.supplier_name }}</span>
+          </div>
+
+          <div class="info-section">
+            <span class="label">Quantity:</span>
+            <span class="value">{{ item.quantity }}</span>
+          </div>
+
+          <div class="info-section">
+            <span class="label">Price:</span>
+            <span class="value">${{ item.price }}</span>
+          </div>
+
+          <div class="info-section">
+            <span class="label">Note:</span>
+            <span class="value note">{{ item.special_note || 'No note' }}</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <!-- Empty state template -->
+  <ng-template #noData>
+    <div class="empty-state ion-text-center ion-padding-top">
+      <ion-icon [src]="icons.floder" size="large" color="medium"></ion-icon>
+      <p class="ion-margin-top" color="medium">No inventory items found</p>
+    </div>
+  </ng-template>
 </ion-content>
