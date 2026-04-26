@@ -1,0 +1,98 @@
+// Form item styling: bottom margin
+.form-item {
+  margin-bottom: 20px;
+}
+
+// Card styling: border radius
+ion-card {
+  border-radius: 12px;
+}
+
+// Item card styling (consistent with inventory list page)
+.item-card {
+  position: relative; // Position context for absolute badge container
+}
+
+// Badge container: holds stock status and featured badges
+.badge-container {
+  position: absolute;  // Absolute positioning
+  top: 12px;           // Top offset
+  right: 12px;         // Right offset
+  display: flex;       // Flex layout
+  flex-direction: column; // Vertical arrangement
+  gap: 6px;            // Spacing between items
+  align-items: flex-end; // Align to right
+}
+
+// Stock status badge styling
+.stock-badge {
+  font-size: 0.75rem; // Font size
+}
+
+// Featured item badge styling
+.featured-badge {
+  font-size: 0.75rem; // Font size
+}
+
+// Single column item info layout container
+.item-info-single-column {
+  padding-right: 100px; // Right padding for badge space
+  
+  // Info section styling
+  .info-section {
+    margin-bottom: 12px; // Bottom margin
+    display: flex;       // Flex layout
+    flex-direction: column; // Vertical arrangement
+    gap: 4px;            // Spacing between items
+  }
+
+  // Item name styling
+  .item-name {
+    margin: 0;           // Remove default margin
+    font-size: 1.1rem;   // Font size
+    display: flex;       // Flex layout
+    align-items: baseline; // Align by baseline
+    gap: 8px;            // Spacing between name and ID
+  }
+
+  // Inline item ID styling
+  .item-id-inline {
+    font-size: 0.85rem;  // Font size
+    color: #718096;      // Text color (light gray)
+    font-weight: normal; // Normal weight
+  }
+
+  // Label styling (e.g., Category:)
+  .label {
+    font-weight: 600;    // Semi-bold
+    color: #4a5568;      // Text color (dark gray)
+    font-size: 0.95rem;  // Font size
+  }
+
+  // Value styling (e.g., Electronics)
+  .value {
+    color: #1a202c;      // Text color (near black)
+    font-size: 0.95rem;  // Font size
+  }
+
+  // Note text styling
+  .note {
+    font-style: italic;  // Italic
+    color: #718096;      // Text color (light gray)
+  }
+}
+
+// Empty state styling (when no featured items)
+.empty-state {
+  padding-top: 40px;     // Top padding
+  
+  // Empty state icon styling
+  ion-icon {
+    margin-bottom: 16px; // Bottom margin
+  }
+}
+
+// List styling: bottom margin
+ion-list {
+  margin-bottom: 24px;
+}

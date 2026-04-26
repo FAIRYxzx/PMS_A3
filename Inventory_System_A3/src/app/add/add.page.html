@@ -1,0 +1,181 @@
+<!-- Header section for inventory add page -->
+<ion-header>
+  <!-- Toolbar with primary theme color -->
+  <ion-toolbar color="primary">
+    <!-- Page title -->
+    <ion-title>Add Inventory Item</ion-title>
+    <!-- Help button, triggers showHelp() on click, danger theme color -->
+    <ion-button slot="end" color="danger" (click)="showHelp()">
+      <ion-icon [src]="icons.help"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Main content area with padding -->
+<ion-content class="ion-padding">
+  <!-- Form list area with bottom margin -->
+  <ion-list class="ion-margin-bottom">
+    <!-- Item name input (required) -->
+    <ion-item class="form-item">
+      <ion-label position="stacked">Item Name *</ion-label>
+      <!-- Two-way binding to newItem.item_name, placeholder for unique name -->
+      <ion-input [(ngModel)]="newItem.item_name" placeholder="Enter unique item name"></ion-input>
+    </ion-item>
+
+    <!-- Category selection (required) -->
+    <ion-item class="form-item">
+      <ion-label position="stacked">Category *</ion-label>
+      <!-- Two-way binding to newItem.category, loop render category options -->
+      <ion-select [(ngModel)]="newItem.category">
+        <ion-select-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Quantity input (required) -->
+    <ion-item class="form-item">
+      <ion-label position="stacked">Quantity *</ion-label>
+      <!-- Two-way binding to newItem.quantity, number type, min value 0 -->
+      <ion-input [(ngModel)]="newItem.quantity" type="number" min="0" placeholder="Enter stock quantity"></ion-input>
+    </ion-item>
+
+    <!-- Price input (required) -->
+    <ion-item class="form-item">
+      <ion-label position="stacked">Price ($) *</ion-label>
+      <!-- Two-way binding to newItem.price, number type, min value 0 -->
+      <ion-input [(ngModel)]="newItem.price" type="number" min="0" placeholder="Enter item price"></ion-input>
+    </ion-item>
+
+    <!-- Supplier name input (required) -->
+    <ion-item class="form-item">
+      <ion-label position="stacked">Supplier Name *</ion-label>
+      <!-- Two-way binding to newItem.supplier_name -->
+      <ion-input [(ngModel)]="newItem.supplier_name" placeholder="Enter supplier name"></ion-input>
+    </ion-item>
+
+    <!-- Stock status selection (required) -->
+    <ion-item class="form-item">
+      <ion-label position="stacked">Stock Status *</ion-label>
+      <!-- Two-way binding to newItem.stock_status, loop render status options -->
+      <ion-select [(ngModel)]="newItem.stock_status">
+        <ion-select-option *ngFor="let status of stockStatuses" [value]="status">{{ status }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <!-- Featured item toggle (optional) -->
+    <ion-item lines="none" class="form-item">
+      <ion-label position="stacked">Featured Item</ion-label>
+      <!-- Two-way binding to isFeatured, triggers onFeaturedToggle() on change -->
+      <ion-toggle [(ngModel)]="isFeatured" (ionChange)="onFeaturedToggle()"></ion-toggle>
+    </ion-item>
+
+    <!-- Special note input (optional) -->
+    <ion-item class="form-item">
+      <ion-label position="stacked">Special Note (Optional)</ion-label>
+      <!-- Two-way binding to newItem.special_note -->
+      <ion-input [(ngModel)]="newItem.special_note" placeholder="Enter special note"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <!-- Submit add button -->
+  <ion-button
+    expand="block"         
+    color="success"         
+    (click)="submitAddForm()" 
+    [disabled]="isLoading"  
+    class="ion-margin-bottom" 
+    size="small"            
+  >
+  <!-- Block-level display -->
+  <!-- Success theme color -->
+  <!-- Triggers submit method on click -->
+  <!-- Disabled when loading -->
+  <!-- Bottom margin -->
+  <!-- Small size -->
+    <ion-icon [src]="icons.add" slot="start"></ion-icon> <!-- Add icon on left -->
+    Add Inventory Item
+  </ion-button>
+
+  <!-- Form reset button -->
+  <ion-button
+    expand="block"
+    fill="outline"          
+    color="medium"          
+    (click)="resetForm()"   
+    class="ion-margin-bottom"
+    size="small"
+  >
+  <!-- Outline style -->
+  <!-- Medium gray theme color --> 
+  <!-- Triggers reset method on click --> 
+    Reset Form
+  </ion-button>
+
+  <!-- Featured items title -->
+  <ion-title class="ion-margin-top">Featured Items</ion-title>
+  <!-- Conditional rendering: show list if featured items exist, else show empty state -->
+  <ng-container *ngIf="featuredItems.length > 0; else noFeatured">
+    <!-- Loop render featured item cards -->
+    <ion-card *ngFor="let item of featuredItems" class="ion-margin-bottom item-card">
+      <ion-card-content>
+        <!-- Badge container: shows stock status and featured badge -->
+        <div class="badge-container">
+          <!-- Stock status badge, dynamic color based on status -->
+          <ion-badge [color]="statusColorMap[item.stock_status]" class="stock-badge">
+            {{ item.stock_status }}
+          </ion-badge>
+          <!-- Featured item badge -->
+          <ion-badge color="tertiary" class="featured-badge">Featured</ion-badge>
+        </div>
+
+        <!-- Single column layout for item info -->
+        <div class="item-info-single-column">
+          <!-- Item name section -->
+          <div class="info-section">
+            <h3 class="item-name">
+              <strong>{{ item.item_name }}</strong>
+              <span class="item-id-inline">(ID: {{ item.item_id }})</span> <!-- Item ID -->
+            </h3>
+          </div>
+
+          <!-- Category info -->
+          <div class="info-section">
+            <span class="label">Category:</span>
+            <span class="value">{{ item.category }}</span>
+          </div>
+
+          <!-- Supplier info -->
+          <div class="info-section">
+            <span class="label">Supplier:</span>
+            <span class="value">{{ item.supplier_name }}</span>
+          </div>
+
+          <!-- Quantity info -->
+          <div class="info-section">
+            <span class="label">Quantity:</span>
+            <span class="value">{{ item.quantity }}</span>
+          </div>
+
+          <!-- Price info -->
+          <div class="info-section">
+            <span class="label">Price:</span>
+            <span class="value">${{ item.price }}</span>
+          </div>
+
+          <!-- Note info (show "No note" if empty) -->
+          <div class="info-section">
+            <span class="label">Note:</span>
+            <span class="value note">{{ item.special_note || 'No note' }}</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <!-- Empty state template: show when no featured items -->
+  <ng-template #noFeatured>
+    <div class="empty-state ion-text-center ion-padding-top">
+      <ion-icon [src]="icons.star" size="large" color="medium"></ion-icon>
+      <p class="ion-margin-top" color="medium">No featured items yet</p>
+    </div>
+  </ng-template>
+</ion-content>
