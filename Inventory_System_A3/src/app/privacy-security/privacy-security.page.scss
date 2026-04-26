@@ -1,0 +1,44 @@
+/* Accordion styling: Add spacing, rounded corners and subtle shadow for depth */
+ion-accordion {
+  margin-bottom: 12px;        // Bottom margin between accordions
+  border-radius: 8px;         // Rounded corners following mobile design standards
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); // Subtle shadow for depth
+  background: white;          // White background for better text readability
+}
+
+/* Intro card styling: Highlight security commitment at the top */
+.intro-card {
+  margin: 0 0 20px 0;         // Bottom margin only to separate from accordions
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08); // Stronger shadow for emphasis
+
+  // Card title: Larger font + bold for visual hierarchy
+  ion-card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+}
+
+/* Accordion content text styling: Optimize typography for readability */
+.text-content {
+  font-size: 0.95rem;         // Mobile-friendly font size
+  line-height: 1.5;           // Line height for reading comfort
+  color: #333;                // Dark gray text, softer than pure black
+
+  // Unordered list: Adjust indentation and spacing
+  ul {
+    padding-left: 20px;       // Left indent for list items
+    margin-top: 10px;         // Top margin between text and list
+    margin-bottom: 10px;      // Bottom margin between list and text
+
+    // List item: Add bottom margin to avoid crowding
+    li {
+      margin-bottom: 8px;
+    }
+  }
+
+  // Paragraph: Consistent spacing
+  p {
+    margin-top: 0;            // Remove top margin for tight alignment
+    margin-bottom: 10px;      // Bottom margin between paragraphs
+  }
+}

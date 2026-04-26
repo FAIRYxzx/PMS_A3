@@ -1,0 +1,90 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Privacy & Security</ion-title>
+    <!-- Help Widget Requirement: Included as a button in the header -->
+    <ion-buttons slot="end">
+      <ion-button (click)="showHelp()">
+        <ion-icon slot="icon-only" name="help-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding bg-light">
+
+  <!-- Introduction Card -->
+  <ion-card class="intro-card">
+    <ion-card-header>
+      <ion-card-title>Security Commitment</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      This application places the highest priority on the security and privacy of your inventory data.
+      Below is a detailed breakdown of our data handling practices and <strong>mobile-specific</strong> security
+      measures.
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Accordion Layout for Better Mobile UX -->
+  <ion-accordion-group multiple="true">
+
+    <!-- Section 1: Data Collection -->
+    <ion-accordion value="data-collection">
+      <ion-item slot="header" color="light">
+        <ion-icon name="server-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>I. Data Collection & Usage</ion-label>
+      </ion-item>
+      <div class="ion-padding text-content" slot="content">
+        <p>To provide seamless inventory management, we process data strictly for operational purposes:</p>
+        <ul>
+          <li><strong>Inventory Data:</strong> Item Name, Category, Quantity, Price, Supplier, etc. This is essential
+            for core CRUD operations.</li>
+          <li><strong>Network Diagnostics:</strong> Server API Interaction logs for troubleshooting.</li>
+        </ul>
+        <p>
+          <ion-text color="success"><strong>Privacy Guarantee:</strong></ion-text>
+          We adhere strictly to data minimization. We <strong>do not</strong> request device permissions like Camera,
+          Microphone, or Geolocation.
+        </p>
+      </div>
+    </ion-accordion>
+
+    <!-- Section 2: Transmission & Backend -->
+    <ion-accordion value="transmission">
+      <ion-item slot="header" color="light">
+        <ion-icon name="lock-closed-outline" slot="start" color="secondary"></ion-icon>
+        <ion-label>II. Transmission & Backend</ion-label>
+      </ion-item>
+      <div class="ion-padding text-content" slot="content">
+        <ul>
+          <li><strong>HTTPS Encryption:</strong> All communications with the server use HTTPS, preventing
+            Man-in-the-Middle (MitM) attacks on public Wi-Fi.</li>
+          <li><strong>Server-Side Validation:</strong> Data undergoes strict validation on the remote database to ensure
+            integrity.</li>
+          <li><strong>Protected Operations:</strong> Destructive API operations have fail-safes (e.g., the "Laptop" item
+            is locked from deletion).</li>
+        </ul>
+      </div>
+    </ion-accordion>
+
+    <!-- Section 3: Mobile-Specific Security (Key for HD in ULO4) -->
+    <ion-accordion value="mobile-security">
+      <ion-item slot="header" color="light">
+        <ion-icon name="phone-portrait-outline" slot="start" color="tertiary"></ion-icon>
+        <ion-label>III. Mobile-Specific Security</ion-label>
+      </ion-item>
+      <div class="ion-padding text-content" slot="content">
+        <p>We utilize modern mobile architecture features to protect your data:</p>
+        <ul>
+          <li><strong>App Sandboxing:</strong> This application operates within the iOS/Android secure sandbox,
+            isolating data from other unverified apps.</li>
+          <li><strong>Local Storage Limitation:</strong> Sensitive inventory pricing is not stored unencrypted in
+            `localStorage` to prevent access if the device is compromised.</li>
+          <li><strong>Device-Level Security:</strong> Users are strongly advised to enable OS-level security (PIN,
+            FaceID, TouchID) to protect unauthorized app access.</li>
+        </ul>
+      </div>
+    </ion-accordion>
+
+  </ion-accordion-group>
+
+</ion-content>
