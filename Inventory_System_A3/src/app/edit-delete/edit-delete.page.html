@@ -1,0 +1,291 @@
+<!-- Header section for Edit / Delete Item page -->
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Edit / Delete Item</ion-title>
+    <!-- Help button: triggers help dialog on click -->
+    <ion-button slot="end" color="danger" (click)="showHelp()">
+      <ion-icon [src]="icons.help"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Main page content area -->
+<ion-content class="ion-padding">
+  <!-- Filter card: contains search and advanced filter functions -->
+  <ion-card class="filter-card">
+    <ion-card-content>
+      <!-- Item name search bar: two-way binding to searchName -->
+      <ion-searchbar
+        [(ngModel)]="searchName"
+        placeholder="Search by item name"
+        class="ion-margin-bottom"
+      ></ion-searchbar>
+
+      <!-- Advanced filter accordion panel -->
+      <ion-accordion-group>
+        <ion-accordion value="advanced">
+          <ion-item slot="header" lines="none" class="ion-no-padding">
+            <ion-label>
+              <strong>Advanced Filters</strong>
+            </ion-label>
+          </ion-item>
+          
+          <!-- Advanced filter content area -->
+          <div slot="content" class="advanced-filters">
+            <ion-grid>
+              <!-- Category and stock status filter row -->
+              <ion-row>
+                <!-- Category dropdown: two-way binding to selectedCategory -->
+                <ion-col size="6">
+                  <ion-select
+                    [(ngModel)]="selectedCategory"
+                    placeholder="Category"
+                    fill="outline"
+                    class="ion-margin-bottom"
+                  >
+                    <ion-select-option value="">All</ion-select-option>
+                    <ion-select-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</ion-select-option>
+                  </ion-select>
+                </ion-col>
+                <!-- Stock status dropdown: two-way binding to selectedStockStatus -->
+                <ion-col size="6">
+                  <ion-select
+                    [(ngModel)]="selectedStockStatus"
+                    placeholder="Stock Status"
+                    fill="outline"
+                    class="ion-margin-bottom"
+                  >
+                    <ion-select-option value="">All</ion-select-option>
+                    <ion-select-option *ngFor="let status of stockStatuses" [value]="status">{{ status }}</ion-select-option>
+                  </ion-select>
+                </ion-col>
+              </ion-row>
+
+              <!-- Price range filter row -->
+              <ion-row class="ion-align-items-center price-row">
+                <!-- Min price input: two-way binding to priceMin, validate on change -->
+                <ion-col size="5">
+                  <ion-item lines="none" class="ion-no-padding price-item">
+                    <ion-label position="stacked" class="price-label">Min Price</ion-label>
+                    <ion-input 
+                      type="number" 
+                      [(ngModel)]="priceMin" 
+                      min="0"
+                      (ionChange)="validatePriceMin()"
+                      placeholder="Not less than 0"
+                      fill="outline"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+                <ion-col size="2" class="ion-text-center">
+                  <span class="price-separator">~</span>
+                </ion-col>
+                <!-- Max price input: two-way binding to priceMax -->
+                <ion-col size="5">
+                  <ion-item lines="none" class="ion-no-padding price-item">
+                    <ion-label position="stacked" class="price-label">Max Price</ion-label>
+                    <ion-input 
+                      type="number" 
+                      [(ngModel)]="priceMax" 
+                      min="0"
+                      placeholder="No limit"
+                      fill="outline"
+                    ></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+
+              <!-- Show featured items only toggle: two-way binding to showFeaturedOnly -->
+              <ion-row class="ion-margin-top">
+                <ion-col size="12">
+                  <ion-item lines="none" class="ion-no-padding">
+                    <ion-label>Show Featured Items Only</ion-label>
+                    <ion-toggle [(ngModel)]="showFeaturedOnly"></ion-toggle>
+                  </ion-item>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+
+      <!-- Search and Reset button row -->
+      <ion-grid class="ion-margin-top">
+        <ion-row>
+          <ion-col size="6">
+            <!-- Apply search button: triggers filter logic -->
+            <ion-button expand="block" color="primary" (click)="applySearch()" size="small">
+              <ion-icon [src]="icons.search" slot="start"></ion-icon>
+              Search
+            </ion-button>
+          </ion-col>
+          <ion-col size="6">
+            <!-- Reset filter button: clear all filter conditions -->
+            <ion-button expand="block" fill="outline" color="medium" (click)="resetSearch()" size="small">
+              Reset
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Item list display: show list if results exist, else show empty state -->
+  <ng-container *ngIf="filteredItems.length > 0; else noData">
+    <!-- Item card: loop filtered items, open edit modal on click -->
+    <ion-card 
+      *ngFor="let item of filteredItems" 
+      class="ion-margin-bottom item-card"
+      (click)="openItemModal(item)"
+    >
+      <ion-card-content>
+        <!-- Item status badge container -->
+        <div class="badge-container">
+          <!-- Stock status badge: dynamic color based on status -->
+          <ion-badge [color]="statusColorMap[item.stock_status]" class="stock-badge">
+            {{ item.stock_status }}
+          </ion-badge>
+          <!-- Featured badge: only show if item is featured -->
+          <ion-badge *ngIf="item.featured_item === 1" color="tertiary" class="featured-badge">
+            Featured
+          </ion-badge>
+        </div>
+
+        <!-- Item info display (single column layout) -->
+        <div class="item-info-single-column">
+          <div class="info-section">
+            <h3 class="item-name">
+              <strong>{{ item.item_name }}</strong>
+              <span class="item-id-inline">(ID: {{ item.item_id }})</span>
+            </h3>
+          </div>
+
+          <div class="info-section">
+            <span class="label">Category:</span>
+            <span class="value">{{ item.category }}</span>
+          </div>
+
+          <div class="info-section">
+            <span class="label">Supplier:</span>
+            <span class="value">{{ item.supplier_name }}</span>
+          </div>
+
+          <div class="info-section">
+            <span class="label">Quantity:</span>
+            <span class="value">{{ item.quantity }}</span>
+          </div>
+
+          <div class="info-section">
+            <span class="label">Price:</span>
+            <span class="value">${{ item.price }}</span>
+          </div>
+
+          <div class="info-section">
+            <span class="label">Note:</span>
+            <span class="value note">{{ item.special_note || 'No note' }}</span>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <!-- Empty state template: show when no filter results -->
+  <ng-template #noData>
+    <div class="empty-state ion-text-center ion-padding-top">
+      <ion-icon [src]="icons.floder" size="large" color="medium"></ion-icon>
+      <p class="ion-margin-top" color="medium">No items found</p>
+    </div>
+  </ng-template>
+
+  <!-- Edit / Delete modal: controlled by isModalOpen -->
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar color="primary">
+          <ion-title>Edit / Delete Item</ion-title>
+          <!-- Close modal button -->
+          <ion-button slot="end" fill="clear" color="light" (click)="closeModal()" size="small">
+            <ion-icon [src]="icons.close"></ion-icon>
+          </ion-button>
+        </ion-toolbar>
+      </ion-header>
+      
+      <!-- Modal content area: edit item form -->
+      <ion-content class="ion-padding">
+        <ion-list *ngIf="selectedItem">
+          <!-- Item name input (required) -->
+          <ion-item class="form-item">
+            <ion-label position="stacked">Item Name *</ion-label>
+            <ion-input [(ngModel)]="editItem.item_name"></ion-input>
+          </ion-item>
+
+          <!-- Category select (required) -->
+          <ion-item class="form-item">
+            <ion-label position="stacked">Category *</ion-label>
+            <ion-select [(ngModel)]="editItem.category">
+              <ion-select-option *ngFor="let cat of categories" [value]="cat">{{ cat }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Quantity input (required, number type, min 0) -->
+          <ion-item class="form-item">
+            <ion-label position="stacked">Quantity *</ion-label>
+            <ion-input [(ngModel)]="editItem.quantity" type="number" min="0"></ion-input>
+          </ion-item>
+
+          <!-- Price input (required, number type, min 0) -->
+          <ion-item class="form-item">
+            <ion-label position="stacked">Price ($) *</ion-label>
+            <ion-input [(ngModel)]="editItem.price" type="number" min="0"></ion-input>
+          </ion-item>
+
+          <!-- Supplier name input (required) -->
+          <ion-item class="form-item">
+            <ion-label position="stacked">Supplier Name *</ion-label>
+            <ion-input [(ngModel)]="editItem.supplier_name"></ion-input>
+          </ion-item>
+
+          <!-- Stock status select (required) -->
+          <ion-item class="form-item">
+            <ion-label position="stacked">Stock Status *</ion-label>
+            <ion-select [(ngModel)]="editItem.stock_status">
+              <ion-select-option *ngFor="let status of stockStatuses" [value]="status">{{ status }}</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Featured item toggle: update value on change -->
+          <ion-item lines="none" class="form-item">
+            <ion-label position="stacked">Featured Item</ion-label>
+            <ion-toggle [(ngModel)]="isFeatured" (ionChange)="onFeaturedToggle()"></ion-toggle>
+          </ion-item>
+
+          <!-- Special note input (optional) -->
+          <ion-item class="form-item">
+            <ion-label position="stacked">Special Note (Optional)</ion-label>
+            <ion-input [(ngModel)]="editItem.special_note"></ion-input>
+          </ion-item>
+        </ion-list>
+
+        <!-- Update / Delete button row -->
+        <ion-grid class="ion-margin-top">
+          <ion-row>
+            <ion-col size="6">
+              <!-- Submit update button: trigger update logic -->
+              <ion-button expand="block" color="warning" (click)="submitUpdate()" size="small">
+                <ion-icon [src]="icons.creat" slot="start"></ion-icon>
+                Update
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <!-- Delete confirm button: trigger delete confirmation -->
+              <ion-button expand="block" color="danger" (click)="confirmDelete()" size="small">
+                <ion-icon [src]="icons.trash" slot="start"></ion-icon>
+                Delete
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
