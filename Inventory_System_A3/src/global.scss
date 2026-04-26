@@ -35,3 +35,223 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+// Global override for ion-tab-bar styles (same component as tabs.page.scss, lower global priority)
+ion-tab-bar {
+  --background: #f8f9faa9; // Background color (light gray-white semi-transparent)
+  --color: #495057; // Unselected state color
+  --color-selected: #007bff; // Selected state color (blue)
+  border-top: 1px solid #e9ecef; // Top thin border to separate content area
+}
+
+// Custom help alert styles (.custom-help-alert)
+.custom-help-alert {
+  // Alert message text supports line breaks (pre-line preserves line breaks)
+  .alert-message {
+    white-space: pre-line; 
+  }
+}
+
+// Global body styles: unified font and anti-aliasing
+body {
+  // Font stack: Inter first, fallback to system sans-serif fonts to ensure cross-platform consistency
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  // Apple text anti-aliasing for better font clarity
+  -webkit-font-smoothing: antialiased;
+}
+
+// Global navigation bar (ion-toolbar) styles
+ion-toolbar {
+  --border-width: 0 !important; // Force remove default border
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); // Subtle top shadow to enhance depth
+}
+
+// Common card styles: shared by item card/filter card/intro card
+.item-card,
+.filter-card,
+.intro-card {
+  border-radius: 16px; // Large rounded corners for soft visual
+  box-shadow: 0 8px 24px rgba(149, 157, 165, 0.15) !important; // Card shadow to enhance depth
+  border: 1px solid rgba(0, 0, 0, 0.03); // Ultra-thin border to distinguish card boundaries
+  background: #ffffff; // White background
+  margin-bottom: 20px; // Card bottom spacing
+  overflow: hidden; // Clip overflow content (e.g., child elements inside rounded corners)
+  // Transition animation: transform/box-shadow 0.2s ease for better interaction experience
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  // Press/active state: slight scale + reduced shadow to simulate press effect
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 4px 12px rgba(149, 157, 165, 0.1);
+  }
+}
+
+// Badge container styles: for horizontal arrangement of multiple badges
+.badge-container {
+  display: flex; // Flex layout
+  gap: 10px; // 10px spacing between badges
+  margin-bottom: 16px; // Container bottom spacing
+}
+
+// Global badge (ion-badge) styles
+ion-badge {
+  padding: 6px 12px; // Padding to increase click area
+  border-radius: 8px; // Rounded corners
+  font-weight: 600; // Bold font
+  letter-spacing: 0.5px; // Letter spacing for better readability
+  font-size: 0.75rem; // Small font size
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); // Subtle shadow to highlight badge
+}
+
+// Single-column item info area styles
+.item-info-single-column {
+  // Info row container
+  .info-section {
+    display: flex; // Flex layout
+    justify-content: space-between; // Space between left and right
+    align-items: center; // Vertically center
+    padding: 10px 0; // Top and bottom padding
+    border-bottom: 1px dashed #E2E8F0; // Dashed separator line to distinguish multiple info rows
+    font-size: 0.95rem; // Base font size
+
+    // Last row removes separator line and bottom padding
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    // Item name styles
+    .item-name {
+      font-size: 1.3rem; // Large font to highlight name
+      color: #1E293B; // Dark gray text
+      margin: 0 0 4px 0; // Small bottom spacing
+      width: 100%; // Full width
+
+      // Item ID inline styles
+      .item-id-inline {
+        font-size: 0.8rem; // Small font size
+        color: #94A3B8; // Light gray
+        font-weight: normal; // Remove bold
+        margin-left: 8px; // Spacing from name
+      }
+    }
+
+    // Label text styles (e.g., "Price"/"Stock")
+    .label {
+      color: #64748B; // Medium gray
+      font-weight: 500; // Medium bold
+    }
+
+    // Value text styles (e.g., price value/stock quantity)
+    .value {
+      color: #334155; // Dark gray
+      font-weight: 600; // Bold to highlight
+      text-align: right; // Right-aligned
+
+      // Note value text styles (special mark)
+      &.note {
+        font-weight: 400; // Normal font weight
+        font-style: italic; // Italic
+        color: #94A3B8; // Light gray
+      }
+    }
+  }
+}
+
+// Form item (ion-item) custom styles
+ion-item.form-item {
+  --background: #F1F5F9; // Light gray background to distinguish form area
+  --border-radius: 12px; // Rounded corners
+  --border-width: 0px !important; // Remove default border
+  --padding-start: 16px; // Left padding
+  margin-bottom: 16px; // Bottom spacing
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.02); // Inner shadow to enhance texture
+
+  // Form label styles
+  ion-label {
+    color: #475569 !important; // Medium gray text
+    font-weight: 600; // Bold
+    font-size: 0.9rem; // Small font size
+  }
+
+  // Input/select text styles
+  ion-input,
+  ion-select {
+    font-size: 1rem; // Normal font size
+    color: #0F172A; // Dark gray near black for better readability
+  }
+}
+
+// Empty state styles (display when no data)
+.empty-state {
+  display: flex; // Flex layout
+  flex-direction: column; // Vertical arrangement
+  align-items: center; // Horizontally center
+  justify-content: center; // Vertically center
+  padding: 40px 20px; // Top and bottom padding, left and right white space
+  opacity: 0.8; // Slight transparency to reduce visual weight
+
+  // Empty state icon
+  ion-icon {
+    font-size: 64px; // Large icon
+    color: #CBD5E1; // Light gray
+    margin-bottom: 16px; // Bottom spacing
+  }
+
+  // Empty state text
+  p {
+    font-size: 1.1rem; // Normal font size
+    color: #64748B; // Medium gray
+    font-weight: 500; // Medium bold
+  }
+}
+
+// Global button (ion-button) styles
+ion-button {
+  --border-radius: 12px; // Rounded corners
+  font-weight: bold; // Bold text
+  letter-spacing: 0.5px; // Letter spacing to enhance button text texture
+}
+
+// Global search bar (ion-searchbar) styles
+ion-searchbar {
+  --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important; // Subtle shadow
+  --border-radius: 12px !important; // Rounded corners
+  --background: #ffffff !important; // White background
+  padding-left: 0; // Remove default left padding
+  padding-right: 0; // Remove default right padding
+}
+
+// Global alert (ion-alert) style adjustments
+ion-alert {
+  // Radio icon container
+  .alert-radio-icon {
+    display: flex !important; // Flex layout
+    align-items: center !important; // Vertically center
+    justify-content: center !important; // Horizontally center
+    position: relative !important; // Relative positioning
+    box-sizing: border-box !important; // Box model: border included in width/height
+  }
+
+  // Radio inner dot
+  .alert-radio-inner {
+    position: relative !important; // Relative positioning
+    top: auto !important; // Reset top
+    left: auto !important; // Reset left
+    margin: 0 !important; // Remove margin
+  }
+}
+
+// Global radio (ion-radio) style adjustments
+ion-radio::part(container) {
+  display: flex !important; // Flex layout
+  align-items: center !important; // Vertically center
+  justify-content: center !important; // Horizontally center
+}
+
+ion-radio::part(mark) {
+  position: relative !important; // Relative positioning
+  top: auto !important; // Reset top
+  left: auto !important; // Reset left
+  margin: 0 !important; // Remove margin
+}

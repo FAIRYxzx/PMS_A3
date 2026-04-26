@@ -1,2 +1,37 @@
 // For information on how to create your own theme, please refer to:
 // https://ionicframework.com/docs/theming/
+// Define global CSS variables in root scope for the entire app (Ionic theme system)
+:root {
+    // Primary color: Purple (#4F46E5), used for core interactive elements (buttons, selected states, etc.)
+    --ion-color-primary: #4F46E5;
+    // Primary color RGB value for rgba/gradient scenarios
+    --ion-color-primary-rgb: 79, 70, 229;
+    // Primary color text contrast: white (ensures clear text on primary color background)
+    --ion-color-primary-contrast: #ffffff;
+    // Primary color shade: darker than primary, used for press/hover interaction states
+    --ion-color-primary-shade: #453ddb;
+    // Primary color tint: lighter than primary, used for borders/secondary elements
+    --ion-color-primary-tint: #6158e7;
+
+    // Success color: Green (#10B981), used for success states (operation success, completion, etc.)
+    --ion-color-success: #10B981;
+    --ion-color-success-rgb: 16, 185, 129;
+    --ion-color-success-contrast: #ffffff;
+    --ion-color-success-shade: #0e9f6f;
+    --ion-color-success-tint: #28c08e;
+
+    // Danger color: Red (#EF4444), used for error/delete/warning and other dangerous operations
+    --ion-color-danger: #EF4444;
+    --ion-color-danger-rgb: 239, 68, 68;
+
+    // Warning color: Yellow (#F59E0B), used for reminder/attention prompts
+    --ion-color-warning: #F59E0B;
+
+    // Tertiary color: Light purple (#8B5CF6), used for secondary interaction/emphasis elements
+    --ion-color-tertiary: #8B5CF6;
+    --ion-color-tertiary-rgb: 139, 92, 246;
+    --ion-color-tertiary-contrast: #ffffff;
+
+    // Global background color: Light gray-blue (#F8FAFC), used as the base background for the entire app
+    --ion-background-color: #F8FAFC;
+}

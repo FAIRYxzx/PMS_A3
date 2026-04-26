@@ -1,1 +1,27 @@
+// Custom styles for Ionic bottom tab bar (ion-tab-bar)
+ion-tab-bar {
+    // Remove default tab bar border
+    --border: none;
+    // Set background to semi-transparent white (0.9 opacity) for a light feel
+    --background: rgba(255, 255, 255, 0.9);
+    // Apple-style frosted glass blur effect with 10px blur radius
+    backdrop-filter: blur(10px);
+    /* Apple-style frosted glass blur effect */
+    // Subtle bottom shadow to enhance depth (0 -4px 20px range, black semi-transparent 0.05)
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+    // Adapt to mobile bottom safe area (e.g., iPhone notch/Dynamic Island models) to avoid content being obscured
+    padding-bottom: env(safe-area-inset-bottom);
+    // 20px top-left and top-right rounded corners for visual enhancement
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
 
+// Custom styles for Ionic bottom tab button (ion-tab-button)
+ion-tab-button {
+    // Selected state text/icon color: use global primary color variable
+    --color-selected: var(--ion-color-primary);
+    // Unselected state text/icon color: light gray (#94A3B8)
+    --color: #94A3B8;
+    // Bold font (600) for better readability
+    font-weight: 600;
+}

@@ -1,133 +1,31 @@
-// Filter card styling: bottom margin
-.filter-card {
-  margin-bottom: 20px;
-}
+// Style customization for Ionic accordion component
+ion-accordion {
+  // Set accordion background to transparent for blending with parent container
+  background: transparent;
 
-// Advanced filter area styling: top padding
-.advanced-filters {
-  padding-top: 16px;
-}
+  // Customize styles for ion-item in accordion header (slot="header" marks the item as header)
+  ion-item[slot="header"] {
+    // Set header item background to transparent
+    --background: transparent;
+    // Remove border from header item
+    --border-width: 0;
 
-// Price range row styling: top margin
-.price-row {
-  margin-top: 8px;
-}
-
-// Price input item styling: bottom margin
-.price-item {
-  margin-bottom: 8px;
-}
-
-// Price label styling: bottom margin + bold font
-.price-label {
-  margin-bottom: 6px;
-  font-weight: 500;
-}
-
-// Price separator styling: font size + bold + color
-.price-separator {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #4a5568;
-}
-
-// Item card styling (consistent with inventory page)
-.item-card {
-  position: relative; // Position context for badge container
-  cursor: pointer; // Show pointer on hover
-  transition: transform 0.2s; // Smooth tap effect
-  
-  // Scale effect on active tap
-  &:active {
-    transform: scale(0.98);
-  }
-}
-
-// Badge container: absolute position at top-right of card
-.badge-container {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  display: flex;
-  flex-direction: column; // Stack badges vertically
-  gap: 6px; // Spacing between badges
-  align-items: flex-end; // Align to right
-}
-
-// Stock status badge styling: font size
-.stock-badge {
-  font-size: 0.75rem;
-}
-
-// Featured item badge styling: font size
-.featured-badge {
-  font-size: 0.75rem;
-}
-
-// Single-column item info layout: right padding for badge space
-.item-info-single-column {
-  padding-right: 100px;
-  
-  // Info section styling: bottom margin + flex column + inner spacing
-  .info-section {
-    margin-bottom: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+    // Customize bold text inside ion-label within header item
+    ion-label strong {
+      // Use primary theme color for bold text (retrieved via CSS variable)
+      color: var(--ion-color-primary);
+    }
   }
 
-  // Item name styling: no margin + font size + flex layout
-  .item-name {
-    margin: 0;
-    font-size: 1.1rem;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
+  // Customize styles for advanced filter container (element with class .advanced-filters)
+  .advanced-filters {
+    // Set light gray background to enhance visual hierarchy
+    background: #F8FAFC;
+    // Apply rounded corners for better visual appearance
+    border-radius: 12px;
+    // Add padding to ensure proper spacing between content and border
+    padding: 10px;
+    // Add light gray border to separate filter area from other content
+    border: 1px solid #E2E8F0;
   }
-
-  // Inline item ID styling: font size + light gray + normal weight
-  .item-id-inline {
-    font-size: 0.85rem;
-    color: #718096;
-    font-weight: normal;
-  }
-
-  // Label styling: bold + dark gray + font size
-  .label {
-    font-weight: 600;
-    color: #4a5568;
-    font-size: 0.95rem;
-  }
-
-  // Value styling: main text color + font size
-  .value {
-    color: #1a202c;
-    font-size: 0.95rem;
-  }
-
-  // Note styling: italic + light gray
-  .note {
-    font-style: italic;
-    color: #718096;
-  }
-}
-
-// Form item styling: bottom margin
-.form-item {
-  margin-bottom: 20px;
-}
-
-// Empty state styling: top padding
-.empty-state {
-  padding-top: 40px;
-  
-  // Empty state icon styling: bottom margin
-  ion-icon {
-    margin-bottom: 16px;
-  }
-}
-
-// Search bar styling: bottom margin
-ion-searchbar {
-  margin-bottom: 16px;
 }
