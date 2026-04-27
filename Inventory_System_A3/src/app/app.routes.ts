@@ -17,8 +17,12 @@ export const routes: Routes = [
   },
   {
     path: '', // Empty path (default route)
-    redirectTo: 'tabs/inventory', // Redirect to inventory tab
+    redirectTo: 'tabs/home', // Redirect to home tab
     pathMatch: 'full' // Trigger redirect only on exact empty path match
+  },
+  {
+    path: 'home',
+    loadComponent: () => import('./home/home.page').then(m => m.HomePage)
   }
 ];
 

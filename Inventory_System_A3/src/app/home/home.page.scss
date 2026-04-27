@@ -1,0 +1,167 @@
+/* 整体背景使用我们在 global 中定义的柔和灰白 */
+.bg-light {
+    --background: var(--ion-background-color, #F8FAFC);
+}
+
+/* 顶部沉浸式 Header */
+.dashboard-header {
+    background: linear-gradient(135deg, var(--ion-color-primary) 0%, #8B5CF6 100%);
+    padding: 60px 24px 80px 24px;
+    /* 留出底部空间给 stats-container 悬浮 */
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    color: white;
+
+    h2 {
+        font-size: 1.2rem;
+        font-weight: 500;
+        margin: 0 0 5px 0;
+        opacity: 0.9;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+        font-weight: 800;
+        margin: 0 0 10px 0;
+        letter-spacing: 0.5px;
+    }
+
+    p {
+        font-size: 0.95rem;
+        opacity: 0.8;
+        margin: 0;
+    }
+}
+
+/* 悬浮的统计卡片容器 */
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    margin-top: -40px;
+    /* 负边距，使其悬浮在 header 上方 */
+    z-index: 10;
+    position: relative;
+    margin-bottom: 24px;
+
+    .stat-card {
+        margin: 0;
+        width: 47%;
+        border-radius: 16px;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+
+        ion-icon {
+            font-size: 28px;
+            margin-right: 12px;
+            background: #F1F5F9;
+            padding: 8px;
+            border-radius: 12px;
+        }
+
+        h3 {
+            font-size: 0.8rem;
+            color: #64748B;
+            margin: 0 0 4px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 0.95rem;
+            color: #1E293B;
+            font-weight: bold;
+            margin: 0;
+        }
+    }
+}
+
+/* 2x2 主导航卡片网格 */
+.nav-grid {
+    padding: 0 15px;
+
+    .nav-card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 24px 16px;
+        margin: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 8px 24px rgba(149, 157, 165, 0.1);
+        transition: all 0.2s ease;
+        cursor: pointer;
+
+        position: relative;
+        overflow: hidden;
+
+        /* 点击效果 */
+        &:active {
+            transform: scale(0.95);
+            box-shadow: 0 4px 12px rgba(149, 157, 165, 0.05);
+        }
+
+        /* 图标包裹器：制造带有透明度的主题色背景底底框 */
+        .icon-wrapper {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 16px;
+
+            ion-icon {
+                font-size: 32px;
+            }
+
+            &.bg-primary-light {
+                background: rgba(79, 70, 229, 0.1);
+            }
+
+            &.bg-success-light {
+                background: rgba(16, 185, 129, 0.1);
+            }
+
+            &.bg-warning-light {
+                background: rgba(245, 158, 11, 0.1);
+            }
+
+            &.bg-tertiary-light {
+                background: rgba(139, 92, 246, 0.1);
+            }
+        }
+
+        h4 {
+            margin: 0 0 4px 0;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #1E293B;
+        }
+
+        p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #94A3B8;
+            font-weight: 500;
+        }
+    }
+}
+
+/* 底部提示 */
+.footer-note {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    color: #94A3B8;
+    font-size: 0.9rem;
+
+    ion-icon {
+        margin-right: 6px;
+        font-size: 1.1rem;
+    }
+}

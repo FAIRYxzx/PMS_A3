@@ -13,6 +13,12 @@ export const routes: Routes = [
     // Child route configuration: tab pages under Tabs
     children: [
       {
+        // Route path for Home tab
+        path: 'home',
+        loadComponent: () =>
+          import('../home/home.page').then(m => m.HomePage)
+      },
+      {
         // Route path for Inventory List tab
         path: 'inventory',
         // Lazy load component: optimize initial load speed, only load when route is accessed
@@ -38,18 +44,18 @@ export const routes: Routes = [
           import('../privacy-security/privacy-security.page').then((m) => m.PrivacySecurityPage),
       },
       {
-        // Empty child path (matches /tabs/), redirect to Inventory List by default
+        // Empty child path (matches /tabs/), redirect to home by default
         path: '',
-        redirectTo: '/tabs/inventory',
+        redirectTo: '/tabs/home',
         // Strict full path match to avoid redirection errors from partial matching
         pathMatch: 'full',
       },
     ],
   },
   {
-    // Root path (/) redirects to Inventory List to ensure default page on app launch
+    // Root path (/) redirects to home to ensure default page on app launch
     path: '',
-    redirectTo: '/tabs/inventory',
+    redirectTo: '/tabs/home',
     pathMatch: 'full',
   },
 ];

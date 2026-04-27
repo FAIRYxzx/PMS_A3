@@ -3,7 +3,7 @@ import { Component, EnvironmentInjector, inject } from '@angular/core';
 // Import Ionic standalone components for direct use without module imports
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
 // Import specific Ionicons icons
-import { listOutline, addCircleOutline, createOutline, shieldOutline } from 'ionicons/icons';
+import { listOutline, addCircleOutline, createOutline, shieldOutline, homeOutline } from 'ionicons/icons';
 // Import Angular common module
 import { CommonModule } from '@angular/common';
 
@@ -22,6 +22,8 @@ import { CommonModule } from '@angular/common';
 export class TabsPage {
   // Icon mapping object: links template aliases to actual Ionicons icons
   icons = {
+    // Icon for Home tab
+    home: homeOutline,
     // Icon for Inventory List tab
     list: listOutline,
     // Icon for Add Item tab

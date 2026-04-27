@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 // Import Ionic standalone components
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonButton, IonIcon, IonToggle, IonCard, IonCardContent, IonBadge, IonText } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonButton, IonIcon, IonToggle, IonCard, IonCardContent, IonBadge, IonText,IonButtons, IonFab, IonFabButton } from '@ionic/angular/standalone';
 // Import Ionic alert and loading controllers
 import { AlertController, LoadingController } from '@ionic/angular/standalone';
 // Import inventory service
@@ -11,7 +11,7 @@ import { InventoryService } from '../services/inventory.service';
 import { Category, InventoryItem, InventoryRequest, StockStatus } from '../models/inventory.model';
 // Import Ionicons icon related utilities
 import { addIcons } from 'ionicons';
-import { helpCircleOutline, addCircleOutline, starOutline } from 'ionicons/icons';
+import { helpCircleOutline, addCircleOutline, starOutline, arrowUpOutline } from 'ionicons/icons';
 
 // Register required icons
 addIcons({ helpCircleOutline, addCircleOutline });
@@ -33,12 +33,27 @@ addIcons({ helpCircleOutline, addCircleOutline });
     IonList, IonItem, IonLabel, IonInput,
     IonSelect, IonSelectOption, IonButton,
     IonIcon, IonToggle, IonCard, IonCardContent, IonBadge,
-    IonText
-  ],
+    IonText,
+    IonFab,
+    IonFabButton,
+    IonButtons
+],
   // Provide alert and loading controller services
   providers: [AlertController, LoadingController]
 })
 export class AddPage implements OnInit {
+   @ViewChild(IonContent, { static: false }) content!: IonContent;
+
+  public showScrollButton: boolean = false;
+
+  onScroll(event: any) {
+    const scrollTop = event.detail.scrollTop;
+    this.showScrollButton = scrollTop > 300;
+  }
+
+  scrollToTop() {
+    this.content.scrollToTop(500);
+  }
   /** Form data model for new inventory item */
   newItem: InventoryRequest = {
     item_name: '',
@@ -73,6 +88,7 @@ export class AddPage implements OnInit {
     help: helpCircleOutline,    // Help icon
     add: addCircleOutline,      // Add icon
     star: starOutline,          // Star icon (empty state display)
+    arrowUp: arrowUpOutline,
   };
 
   /**

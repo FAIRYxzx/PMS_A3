@@ -2,14 +2,15 @@
   <ion-toolbar color="primary">
     <ion-title>Add Inventory Item</ion-title>
     <!-- Help button: click to show operation guide popup -->
-    <ion-button slot="end" color="danger" (click)="showHelp()">
-      <ion-icon [src]="icons.help" slot="icon-only"></ion-icon>
-    </ion-button>
+    <ion-buttons slot="end">
+      <ion-button (click)="showHelp()">
+        <ion-icon slot="icon-only" [src]="icons.help"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <!-- Add inventory item form list -->
+<ion-content class="ion-padding" [scrollEvents]="true" (ionScroll)="onScroll($event)">
   <ion-list class="ion-margin-bottom">
 
     <!-- Item name input (required) -->
@@ -137,4 +138,10 @@
       <p class="ion-margin-top" color="medium">No featured items yet</p>
     </div>
   </ng-template>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed" class="scroll-to-top-fab"
+    [class.visible]="showScrollButton">
+    <ion-fab-button size="small" color="primary" (click)="scrollToTop()">
+      <ion-icon [src]="icons.arrowUp"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

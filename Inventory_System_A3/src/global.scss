@@ -255,3 +255,37 @@ ion-radio::part(mark) {
   left: auto !important; // Reset left
   margin: 0 !important; // Remove margin
 }
+
+// Custom styles for Ionic Floating Action Button (ion-fab) for "scroll-to-top" functionality
+ion-fab.scroll-to-top-fab {
+  // Bottom margin: keeps the button 20px away from the page bottom to avoid sticking to the edge
+  margin-bottom: 20px;
+  // Initial state: fully transparent (hides the button)
+  opacity: 0;
+  // Initial state: offset 30px down + scaled to 0.8x, preparing for the subsequent entrance animation
+  transform: translateY(30px) scale(0.8);
+  // Transition animation: applies 0.4s easing to all property changes, uses cubic-bezier curve for smoother and more natural animation
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  // Initial state: disables mouse/touch events to prevent accidental clicks when hidden
+  pointer-events: none;
+  // Z-index setting: 999 ensures the button is always above other page elements and not covered
+  z-index: 999;
+
+  // Visible state styles: triggered when the .visible class is added to the button
+  &.visible {
+    // Visible state: fully opaque (shows the button)
+    opacity: 1;
+    // Visible state: returns to original position + restores normal size, creating a "pop up and scale in" entrance animation
+    transform: translateY(0) scale(1);
+    // Visible state: restores mouse/touch events to allow user clicks
+    pointer-events: auto;
+  }
+
+  // Styles for the circular button inside the FAB (ion-fab-button)
+  ion-fab-button {
+    // Custom shadow: purple (matches primary color), 0 6px 16px range, semi-transparent 0.3, enhances button depth
+    --box-shadow: 0 6px 16px rgba(79, 70, 229, 0.3);
+    // Custom border radius: 50% ensures the button is a perfect circle
+    --border-radius: 50%;
+  }
+}

@@ -1,13 +1,7 @@
 // Import Angular core
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 // Import Ionic standalone UI components
-import {
-  IonHeader, IonToolbar, IonTitle, IonContent,
-  IonSearchbar, IonButton, IonIcon, IonSelect, IonSelectOption,
-  IonCard, IonCardContent, IonLoading, IonBadge,
-  IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput,
-  IonAccordion, IonAccordionGroup, IonToggle
-} from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonSearchbar, IonButton, IonIcon, IonSelect, IonSelectOption, IonCard, IonCardContent, IonLoading, IonBadge, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonAccordion, IonAccordionGroup, IonToggle, IonButtons, IonFab, IonFabButton } from '@ionic/angular/standalone';
 // Import Ionic modal and loading utilities
 import { AlertController, LoadingController } from '@ionic/angular/standalone';
 // Import inventory data service
@@ -39,11 +33,26 @@ addIcons({ helpCircleOutline, filterOutline, searchOutline, arrowUpOutline, arro
     IonCard, IonCardContent, IonLoading, IonBadge,
     IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput,
     IonAccordion, IonAccordionGroup, IonToggle,
-    CommonModule, FormsModule
-  ],
+    CommonModule, FormsModule,
+    IonButtons,
+    IonFab,
+    IonFabButton
+],
   providers: [AlertController, LoadingController]
 })
 export class InventoryPage implements OnInit {
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
+
+  public showScrollButton: boolean = false;
+
+  onScroll(event: any) {
+    const scrollTop = event.detail.scrollTop;
+    this.showScrollButton = scrollTop > 300;
+  }
+
+  scrollToTop() {
+    this.content.scrollToTop(500);
+  }
   // Full unfiltered inventory list
   allItems: InventoryItem[] = [];
   // Filtered and sorted items displayed to user
@@ -78,7 +87,8 @@ export class InventoryPage implements OnInit {
     help: helpCircleOutline,
     search: searchOutline,
     floder: folderOpenOutline,
-    refresh: refreshOutline
+    refresh: refreshOutline,
+    arrowUp: arrowUpOutline
   };
 
   /**

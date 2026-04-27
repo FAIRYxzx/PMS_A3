@@ -3,14 +3,16 @@
   <ion-toolbar color="primary">
     <ion-title>Inventory List</ion-title>
     <!-- Help button: opens help dialog -->
-    <ion-button slot="end" color="danger" (click)="showHelp()">
-      <ion-icon [src]="icons.help" slot="icon-only"></ion-icon>
-    </ion-button>
+    <ion-buttons slot="end">
+      <ion-button (click)="showHelp()">
+        <ion-icon slot="icon-only" [src]="icons.help"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <!-- Main page content -->
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" [scrollEvents]="true" (ionScroll)="onScroll($event)">
   <!-- Filter card containing search, filters, and sorting -->
   <ion-card class="filter-card">
     <ion-card-content>
@@ -220,4 +222,10 @@
       <p class="ion-margin-top" color="medium">No inventory items found</p>
     </div>
   </ng-template>
+  <ion-fab vertical="bottom" horizontal="center" slot="fixed" class="scroll-to-top-fab"
+    [class.visible]="showScrollButton">
+    <ion-fab-button size="small" color="primary" (click)="scrollToTop()">
+      <ion-icon [src]="icons.arrowUp"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>

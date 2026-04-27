@@ -1,16 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 // Import Ionic standalone components
-import {
-  IonHeader, IonToolbar, IonTitle, IonContent,
-  IonList, IonItem, IonLabel, IonInput,
-  IonSelect, IonSelectOption, IonButton,
-  IonIcon, IonToggle, IonSearchbar,
-  IonCard, IonCardContent, IonBadge,
-  IonGrid, IonRow, IonCol, IonModal,
-  IonAccordion, IonAccordionGroup
-} from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonButton, IonIcon, IonToggle, IonSearchbar, IonCard, IonCardContent, IonBadge, IonGrid, IonRow, IonCol, IonModal, IonAccordion, IonAccordionGroup, IonButtons, IonFabButton, IonFab } from '@ionic/angular/standalone';
 // Import Ionic alert and loading controllers
 import { AlertController, LoadingController } from '@ionic/angular/standalone';
 // Import inventory service and models
@@ -18,7 +10,7 @@ import { InventoryService } from '../services/inventory.service';
 import { Category, InventoryItem, InventoryRequest, StockStatus } from '../models/inventory.model';
 // Import Ionic icons
 import { addIcons } from 'ionicons';
-import { helpCircleOutline, searchOutline, createOutline, trashOutline, closeOutline, folderOpenOutline } from 'ionicons/icons';
+import { helpCircleOutline, searchOutline, createOutline, trashOutline, closeOutline, folderOpenOutline,arrowUpOutline } from 'ionicons/icons';
 
 // Register used Ionic icons
 addIcons({ helpCircleOutline, searchOutline, createOutline, trashOutline, closeOutline });
@@ -32,7 +24,7 @@ addIcons({ helpCircleOutline, searchOutline, createOutline, trashOutline, closeO
   templateUrl: 'edit-delete.page.html', // Template file path
   styleUrls: ['edit-delete.page.scss'], // Style file path
   standalone: true, // Standalone component (Angular 14+)
-  imports: [ // Required imported modules
+  imports: [
     CommonModule, FormsModule,
     IonHeader, IonToolbar, IonTitle, IonContent,
     IonList, IonItem, IonLabel, IonInput,
@@ -40,11 +32,27 @@ addIcons({ helpCircleOutline, searchOutline, createOutline, trashOutline, closeO
     IonIcon, IonToggle, IonSearchbar,
     IonCard, IonCardContent, IonBadge,
     IonGrid, IonRow, IonCol, IonModal,
-    IonAccordion, IonAccordionGroup
-  ],
+    IonAccordion, IonAccordionGroup,
+    IonButtons,
+    IonFabButton,
+    IonFab
+],
   providers: [AlertController, LoadingController] // Inject modal and loading services
 })
 export class EditDeletePage {
+  @ViewChild(IonContent, { static: false }) content!: IonContent;
+
+  public showScrollButton: boolean = false;
+
+  onScroll(event: any) {
+    const scrollTop = event.detail.scrollTop;
+    this.showScrollButton = scrollTop > 300;
+  }
+
+  scrollToTop() {
+    this.content.scrollToTop(500);
+  }
+
   // Filter condition variables
   searchName: string = ''; // Search keyword for item name
   selectedCategory: string = ''; // Selected category filter
@@ -92,7 +100,8 @@ export class EditDeletePage {
     floder: folderOpenOutline,  // Empty state folder icon
     close: closeOutline,        // Close icon
     creat: createOutline,       // Update icon
-    trash: trashOutline         // Delete icon
+    trash: trashOutline,         // Delete icon
+    arrowUp: arrowUpOutline
   };
 
   /**

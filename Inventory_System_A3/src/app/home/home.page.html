@@ -1,0 +1,92 @@
+<ion-content [fullscreen]="true" class="bg-light">
+  <!-- 顶部沉浸式 Header 区域 -->
+  <div class="dashboard-header">
+    <div class="greeting-section">
+      <h2>Welcome back,</h2>
+      <h1>Administrator</h1>
+      <p>Manage your inventory system efficiently.</p>
+    </div>
+  </div>
+
+  <!-- 仪表盘统计数据 -->
+  <div class="stats-container">
+    <ion-card class="stat-card">
+      <ion-icon [src]="icons.cube" color="primary"></ion-icon>
+      <div class="stat-info">
+        <h3>Inventory</h3>
+        <p>System Online</p>
+      </div>
+    </ion-card>
+    <ion-card class="stat-card">
+      <ion-icon [src]="icons.cloud" color="success"></ion-icon>
+      <div class="stat-info">
+        <h3>Server</h3>
+        <p>Connected</p>
+      </div>
+    </ion-card>
+  </div>
+
+  <!-- 主菜单导航网格 (2x2 卡片设计) -->
+  <div class="nav-grid">
+    <ion-grid class="ion-no-padding">
+      <ion-row>
+
+        <!-- 导航卡片 1: Inventory List -->
+        <ion-col size="6">
+          <div class="nav-card ion-activatable" (click)="navigateTo('/tabs/inventory')">
+            <div class="icon-wrapper bg-primary-light">
+              <ion-icon [src]="icons.list" color="primary"></ion-icon>
+            </div>
+            <h4>Inventory</h4>
+            <p>View & Search</p>
+            <!-- 增加原生水波纹点击效果 -->
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </ion-col>
+
+        <!-- 导航卡片 2: Add Item -->
+        <ion-col size="6">
+          <div class="nav-card ion-activatable" (click)="navigateTo('/tabs/add')">
+            <div class="icon-wrapper bg-success-light">
+              <ion-icon [src]="icons.add" color="success"></ion-icon>
+            </div>
+            <h4>Add Item</h4>
+            <p>New Record</p>
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </ion-col>
+
+        <!-- 导航卡片 3: Edit / Delete -->
+        <ion-col size="6">
+          <div class="nav-card ion-activatable" (click)="navigateTo('/tabs/edit-delete')">
+            <div class="icon-wrapper bg-warning-light">
+              <ion-icon [src]="icons.edit" color="warning"></ion-icon>
+            </div>
+            <h4>Manage</h4>
+            <p>Edit & Delete</p>
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </ion-col>
+
+        <!-- 导航卡片 4: Privacy & Security -->
+        <ion-col size="6">
+          <div class="nav-card ion-activatable" (click)="navigateTo('/tabs/privacy-security')">
+            <div class="icon-wrapper bg-tertiary-light">
+              <ion-icon [src]="icons.privacy" color="tertiary"></ion-icon>
+            </div>
+            <h4>Security</h4>
+            <p>Privacy Policy</p>
+            <ion-ripple-effect></ion-ripple-effect>
+          </div>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- 底部装饰 / 提示语 -->
+  <div class="footer-note">
+    <ion-icon [src]="icons.help"></ion-icon>
+    <span>Tap any card above to get started</span>
+  </div>
+</ion-content>

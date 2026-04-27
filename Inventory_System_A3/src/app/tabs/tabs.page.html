@@ -2,6 +2,11 @@
 <ion-tabs>
   <!-- Tab bar component, slot="bottom" fixes it at the bottom of the screen -->
   <ion-tab-bar slot="bottom">
+    <!-- Home tab button: linked to home route -->
+    <ion-tab-button tab="home">
+      <ion-icon [src]="icons.home"></ion-icon>
+      <ion-label>Home</ion-label>
+    </ion-tab-button>
     <!-- Inventory List tab button: linked to inventory route -->
     <ion-tab-button tab="inventory">
       <!-- Icon component: bound to list icon defined in ts -->
