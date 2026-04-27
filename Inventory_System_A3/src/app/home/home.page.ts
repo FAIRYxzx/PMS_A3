@@ -21,15 +21,14 @@ import { NavController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
 
-  // 将导入的图标映射到 icons 对象中，供 HTML 中的 [src] 调用
   public icons = {
     cube: cubeOutline,
     cloud: cloudDoneOutline,
     list: listOutline,
     add: addCircleOutline,
-    edit: createOutline,        // 对应你的 icons.edit
-    privacy: shieldCheckmarkOutline, // 对应你的 icons.privacy
-    help: informationCircleOutline   // 对应底部的提示图标
+    edit: createOutline,        
+    privacy: shieldCheckmarkOutline, 
+    help: informationCircleOutline   
   };
 
   constructor(private navCtrl: NavController) { }

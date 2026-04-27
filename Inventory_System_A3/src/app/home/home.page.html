@@ -1,5 +1,5 @@
 <ion-content [fullscreen]="true" class="bg-light">
-  <!-- 顶部沉浸式 Header 区域 -->
+  <!-- Top immersive Header area -->
   <div class="dashboard-header">
     <div class="greeting-section">
       <h2>Welcome back,</h2>
@@ -8,7 +8,7 @@
     </div>
   </div>
 
-  <!-- 仪表盘统计数据 -->
+  <!-- Dashboard statistics -->
   <div class="stats-container">
     <ion-card class="stat-card">
       <ion-icon [src]="icons.cube" color="primary"></ion-icon>
@@ -26,12 +26,12 @@
     </ion-card>
   </div>
 
-  <!-- 主菜单导航网格 (2x2 卡片设计) -->
+  <!-- Main menu navigation grid -->
   <div class="nav-grid">
     <ion-grid class="ion-no-padding">
       <ion-row>
 
-        <!-- 导航卡片 1: Inventory List -->
+        <!-- Navigation card 1: Inventory List -->
         <ion-col size="6">
           <div class="nav-card ion-activatable" (click)="navigateTo('/tabs/inventory')">
             <div class="icon-wrapper bg-primary-light">
@@ -39,12 +39,11 @@
             </div>
             <h4>Inventory</h4>
             <p>View & Search</p>
-            <!-- 增加原生水波纹点击效果 -->
             <ion-ripple-effect></ion-ripple-effect>
           </div>
         </ion-col>
 
-        <!-- 导航卡片 2: Add Item -->
+        <!-- Navigation card 2: Add Item -->
         <ion-col size="6">
           <div class="nav-card ion-activatable" (click)="navigateTo('/tabs/add')">
             <div class="icon-wrapper bg-success-light">
@@ -56,7 +55,7 @@
           </div>
         </ion-col>
 
-        <!-- 导航卡片 3: Edit / Delete -->
+        <!-- Navigation card 3: Edit / Delete -->
         <ion-col size="6">
           <div class="nav-card ion-activatable" (click)="navigateTo('/tabs/edit-delete')">
             <div class="icon-wrapper bg-warning-light">
@@ -68,7 +67,7 @@
           </div>
         </ion-col>
 
-        <!-- 导航卡片 4: Privacy & Security -->
+        <!-- Navigation card 4: Privacy & Security -->
         <ion-col size="6">
           <div class="nav-card ion-activatable" (click)="navigateTo('/tabs/privacy-security')">
             <div class="icon-wrapper bg-tertiary-light">
@@ -84,7 +83,7 @@
     </ion-grid>
   </div>
 
-  <!-- 底部装饰 / 提示语 -->
+  <!-- Bottom decoration / Instructional text -->
   <div class="footer-note">
     <ion-icon [src]="icons.help"></ion-icon>
     <span>Tap any card above to get started</span>

@@ -1,13 +1,12 @@
-/* 整体背景使用我们在 global 中定义的柔和灰白 */
+/* The overall background is defined using the soft gray-white color as specified in the "global" section. */
 .bg-light {
     --background: var(--ion-background-color, #F8FAFC);
 }
 
-/* 顶部沉浸式 Header */
+/* Top immersive Header */
 .dashboard-header {
     background: linear-gradient(135deg, var(--ion-color-primary) 0%, #8B5CF6 100%);
     padding: 60px 24px 80px 24px;
-    /* 留出底部空间给 stats-container 悬浮 */
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
     color: white;
@@ -33,13 +32,12 @@
     }
 }
 
-/* 悬浮的统计卡片容器 */
+/* The suspended statistical card container */
 .stats-container {
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
     margin-top: -40px;
-    /* 负边距，使其悬浮在 header 上方 */
     z-index: 10;
     position: relative;
     margin-bottom: 24px;
@@ -78,7 +76,7 @@
     }
 }
 
-/* 2x2 主导航卡片网格 */
+/* 2x2 Main Navigation Card Grid */
 .nav-grid {
     padding: 0 15px;
 
@@ -98,13 +96,12 @@
         position: relative;
         overflow: hidden;
 
-        /* 点击效果 */
         &:active {
             transform: scale(0.95);
             box-shadow: 0 4px 12px rgba(149, 157, 165, 0.05);
         }
 
-        /* 图标包裹器：制造带有透明度的主题色背景底底框 */
+        /*Icon wrapper: Creates a theme-colored background frame with transparency. */
         .icon-wrapper {
             width: 60px;
             height: 60px;
@@ -117,31 +114,25 @@
             ion-icon {
                 font-size: 32px;
             }
-
             &.bg-primary-light {
                 background: rgba(79, 70, 229, 0.1);
             }
-
             &.bg-success-light {
                 background: rgba(16, 185, 129, 0.1);
             }
-
             &.bg-warning-light {
                 background: rgba(245, 158, 11, 0.1);
             }
-
             &.bg-tertiary-light {
                 background: rgba(139, 92, 246, 0.1);
             }
         }
-
         h4 {
             margin: 0 0 4px 0;
             font-size: 1.1rem;
             font-weight: 700;
             color: #1E293B;
         }
-
         p {
             margin: 0;
             font-size: 0.85rem;
@@ -151,7 +142,7 @@
     }
 }
 
-/* 底部提示 */
+/* Bottom Tip */
 .footer-note {
     display: flex;
     justify-content: center;
